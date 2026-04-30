@@ -1,7 +1,8 @@
 import os
 import sys
 from datetime import datetime
-from v2s.utils.ui import Spinner, print_success, print_error, print_info
+from v2s.utils.ui import Spinner, print_success
+from v2s.utils.voice import select_voice
 
 def aplicar_patch_pytorch():
     import torch
@@ -21,13 +22,8 @@ def cmd_tts(args):
     from TTS.api import TTS
 
     caminho_final = configurar_caminho_saida(args.output)
-    voz_ref = args.voice or "voz_referencia.mp3"
-    idioma  = args.language or "en"
-
-    if not os.path.exists(voz_ref):
-        print_error(f"Arquivo de referência '{voz_ref}' não encontrado!")
-        print_info("Use --voice para apontar para o arquivo de referência correto.")
-        sys.exit(1)
+    idioma = args.language or "en"
+    voz_ref = select_voice(args.voice)
 
     with Spinner("Iniciando XTTSv2 e carregando modelo..."):
         aplicar_patch_pytorch()
