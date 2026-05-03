@@ -4,7 +4,7 @@ import threading
 import itertools
 
 class Spinner:
-    def __init__(self, message="Processando..."):
+    def __init__(self, message="Processing..."):
         self.spinner = itertools.cycle(['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'])
         self.stop_running = False
         self.message = message
@@ -32,15 +32,21 @@ def print_success(msg):
     print(f"[\033[92m✓\033[0m] {msg}")
 
 def print_error(msg):   
-    print(f"[\033[91m✗\033[0m] {msg}")
+    print(f"[\033[91mX\033[0m] {msg}")
 
 def print_info(msg):    
     print(f"[\033[94mi\033[0m] {msg}")
 
 def print_step(msg):    
-    print(f"\n\033[1;95m▶ {msg}\033[0m")
+    print(f"\n\033[1;95m> {msg}\033[0m")
 
 def print_banner():
-    print("\n" + "="*50)
-    print("🎙️   V2S — Voice & Subtitle Toolkit")
-    print("="*50 + "\n")
+    print("""\033[96m
+    ██╗   ██╗██████╗ ███████╗
+    ██║   ██║╚════██╗██╔════╝
+    ██║   ██║ █████╔╝███████╗
+    ╚██╗ ██╔╝██╔═══╝ ╚════██║
+     ╚████╔╝ ███████╗███████║
+      ╚═══╝  ╚══════╝╚══════╝
+       Voice-to-Speech CLI
+\033[0m""")

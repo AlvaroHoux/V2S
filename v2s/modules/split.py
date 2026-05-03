@@ -66,11 +66,11 @@ def fix_srt_by_word(input_file, output_file=None):
 def cmd_split(args):
     entrada = args.input
     if not os.path.exists(entrada):
-        print_error(f"Arquivo '{entrada}' não encontrado!")
+        print_error(f"File '{entrada}' not found!")
         sys.exit(1)
 
-    with Spinner("Separando SRT por palavra..."):
+    with Spinner("Splitting SRT by word..."):
         output_file, total = fix_srt_by_word(entrada, args.output)
 
-    print_success(f"SRT por palavra salvo em: \033[1m{output_file}\033[0m ({total} palavras)")
+    print_success(f"SRT split by word saved to: \033[1m{output_file}\033[0m ({total} words)")
     return output_file

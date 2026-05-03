@@ -25,13 +25,13 @@ def cmd_tts(args):
     idioma = args.language or "en"
     voz_ref = select_voice(args.voice)
 
-    with Spinner("Iniciando XTTSv2 e carregando modelo..."):
+    with Spinner("Starting XTTSv2 and loading model..."):
         aplicar_patch_pytorch()
         tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to("cpu")
     
-    print_success("Modelo XTTSv2 carregado!")
+    print_success("XTTSv2 model loaded!")
 
-    with Spinner("Clonando voz e gerando áudio..."):
+    with Spinner("Cloning voice and generating audio..."):
         tts.tts_to_file(
             text=args.text,
             speaker_wav=voz_ref,
@@ -39,5 +39,5 @@ def cmd_tts(args):
             file_path=caminho_final
         )
     
-    print_success(f"Áudio salvo em: \033[1m{caminho_final}\033[0m")
+    print_success(f"Audio saved to: \033[1m{caminho_final}\033[0m")
     return caminho_final

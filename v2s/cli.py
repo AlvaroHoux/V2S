@@ -1,5 +1,22 @@
+import os
 import sys
 import argparse
+import warnings
+
+# Suppress specific FutureWarnings
+warnings.filterwarnings("ignore", category=FutureWarning, message=".*_register_pytree_node.*")
+
+# Suppress NLTK downloads prints
+try:
+    import nltk
+    _original_download = nltk.download
+    def _quiet_download(*args, **kwargs):
+        kwargs['quiet'] = True
+        return _original_download(*args, **kwargs)
+    nltk.download = _quiet_download
+except ImportError:
+    pass
+
 from v2s.utils.ui import print_banner, print_error
 from v2s.modules.tts import cmd_tts
 from v2s.modules.style_tts import cmd_styletts2
@@ -58,9 +75,9 @@ def main():
         args.func(args)
     except KeyboardInterrupt:
         print("\n")
-        print_error("Cancelado pelo usuário.")
+        print_error("Cancelled by user.")
         sys.exit(0)
     except Exception as e:
         print("\n")
-        print_error(f"Erro inesperado: {e}")
+        print_error(f"Unexpected error: {e}")
         sys.exit(1)

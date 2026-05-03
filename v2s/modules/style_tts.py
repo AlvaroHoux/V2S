@@ -15,18 +15,18 @@ def cmd_styletts2(args):
     caminho_final = configurar_caminho_saida(args.output)
     voz_ref = select_voice(args.voice)
 
-    with Spinner("Carregando modelo StyleTTS2..."):
+    with Spinner("Loading StyleTTS2 model..."):
         aplicar_patch_pytorch()
         styletts = stts2.StyleTTS2()
     
-    print_success("Modelo StyleTTS2 carregado!")
+    print_success("StyleTTS2 model loaded!")
 
-    with Spinner("Clonando voz e gerando áudio com StyleTTS2..."):
+    with Spinner("Cloning voice and generating audio with StyleTTS2..."):
         styletts.inference(
             text=args.text,
             target_voice_path=voz_ref,
             output_wav_file=caminho_final
         )
     
-    print_success(f"Áudio salvo em: \033[1m{caminho_final}\033[0m")
+    print_success(f"Audio saved to: \033[1m{caminho_final}\033[0m")
     return caminho_final

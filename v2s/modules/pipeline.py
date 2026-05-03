@@ -5,21 +5,21 @@ from v2s.modules.srt import cmd_srt
 from v2s.modules.split import cmd_split
 
 def cmd_all(args):
-    print_step(f"Passo 1/3 — Gerando áudio TTS ({args.engine.upper()})")
+    print_step(f"Step 1/3 — Generating TTS audio ({args.engine.upper()})")
     
     if args.engine == "styletts2":
         audio_path = cmd_styletts2(args)
     else:
         audio_path = cmd_tts(args)
 
-    print_step("Passo 2/3 — Transcrevendo com Whisper")
+    print_step("Step 2/3 — Transcribing with Whisper")
     args.input = audio_path
     args.output_dir = args.output_dir or "output"
     srt_path = cmd_srt(args)
 
-    print_step("Passo 3/3 — Separando SRT por palavra")
+    print_step("Step 3/3 — Splitting SRT by word")
     args.input = srt_path
     args.output = None
     cmd_split(args)
 
-    print_info("Fluxo completo finalizado!")
+    print_info("Complete workflow finished!")

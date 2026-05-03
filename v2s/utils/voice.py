@@ -11,30 +11,35 @@ def select_voice(voice_arg=None, voices_dir="voices"):
     voices = sorted([f for f in os.listdir(voices_dir) if f.lower().endswith(valid_exts)])
 
     if not voices:
-        print_error(f"Nenhum arquivo de áudio encontrado na pasta '{voices_dir}'!")
-        print_info("Adicione um arquivo de referência e tente novamente.")
+        print_error(f"No audio files found in directory '{voices_dir}'!")
+        print_info("Add a reference audio file and try again.")
         sys.exit(1)
 
     if voice_arg:
         match = next((v for v in voices if v.lower() == voice_arg.lower() or v.startswith(voice_arg)), None)
         if match:
             return os.path.join(voices_dir, match)
-        print_error(f"Voz '{voice_arg}' não encontrada em '{voices_dir}'.")
+        print_error(f"Voice '{voice_arg}' not found in '{voices_dir}'.")
         sys.exit(1)
 
-    print("\n\033[1;94m🎙️ Vozes disponíveis em 'voices/':\033[0m")
-    for v in voices:
-        print(f"  - {v}")
+    abs_voices_dir = os.path.abspath(voices_dir)
+    print(f"\n\033[1;94m🎙️ Available voices:\033[0m")
+    print(f"  \033[90m(Retrieved from {abs_voices_dir})\033[0m")
+    
+    for i, v in enumerate(voices, 1):
+        print(f"  {i}. {v}")
 
     default_voice = voices[0]
-    escolha = input(f"\nDigite o nome da voz (ou Enter para \033[1m{default_voice}\033[0m): ").strip()
+    escolha = input(f"\nEnter the voice number (or Enter for \033[1m1 - {default_voice}\033[0m): ").strip()
 
     if not escolha:
         selecionada = default_voice
+    elif escolha.isdigit() and 1 <= int(escolha) <= len(voices):
+        selecionada = voices[int(escolha) - 1]
     else:
         selecionada = next((v for v in voices if v.lower().startswith(escolha.lower())), default_voice)
         if selecionada == default_voice and escolha.lower() not in default_voice.lower():
-            print_error(f"Voz '{escolha}' não encontrada. Usando padrão.")
+            print_error(f"Voice '{escolha}' not found. Using default.")
 
-    print_success(f"Voz selecionada: {selecionada}\n")
+    print_success(f"Selected voice: {selecionada}\n")
     return os.path.join(voices_dir, selecionada)
