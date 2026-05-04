@@ -77,6 +77,7 @@ def main():
     p_all.add_argument("-m", "--model", default="base")
     p_all.add_argument("-d", "--output-dir", default="output", dest="output_dir")
     p_all.add_argument("-e", "--engine", choices=["xtts", "styletts2"], default="xtts")
+    p_all.add_argument("-f", "--format", choices=["srt", "ass"], default="ass", help="Subtitle format (srt without effects, ass with effects)")
     # O mesmo argumento na pipeline completa
     p_all.add_argument("--effect", default=None, help="Subtitle effect. Use predefined names (e.g., 'pop', 'fade') or a custom ASS tag string.")
     p_all.set_defaults(func=cmd_all)
