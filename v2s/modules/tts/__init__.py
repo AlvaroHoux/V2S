@@ -1,0 +1,1 @@
+from .tts import configurar_caminho_saida, aplicar_patch_pytorch

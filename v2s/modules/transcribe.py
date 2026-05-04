@@ -3,7 +3,7 @@ import sys
 import subprocess
 from v2s.utils.ui import Spinner, print_success, print_error, print_info
 
-def cmd_srt(args):
+def cmd_transcribe(args):
     entrada = args.input
     if not os.path.exists(entrada):
         print_error(f"File '{entrada}' not found!")

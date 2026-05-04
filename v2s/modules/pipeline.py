@@ -1,7 +1,7 @@
 from v2s.utils.ui import print_step, print_info
-from v2s.modules.tts import cmd_tts
-from v2s.modules.style_tts import cmd_styletts2
-from v2s.modules.srt import cmd_srt
+from v2s.modules.tts.xtts import cmd_tts
+from v2s.modules.tts.style_tts import cmd_styletts2
+from v2s.modules.transcribe import cmd_transcribe
 from v2s.modules.split import cmd_split
 
 def cmd_all(args):
@@ -15,7 +15,7 @@ def cmd_all(args):
     print_step("Step 2/3 — Transcribing with Whisper")
     args.input = audio_path
     args.output_dir = args.output_dir or "output"
-    srt_path = cmd_srt(args)
+    srt_path = cmd_transcribe(args)
 
     print_step("Step 3/3 — Splitting SRT by word")
     args.input = srt_path

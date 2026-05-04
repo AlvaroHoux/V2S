@@ -1,5 +1,3 @@
-import os
-import sys
 import nltk
 from styletts2 import tts as stts2
 from v2s.utils.ui import Spinner, print_success
