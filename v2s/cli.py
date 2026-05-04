@@ -60,6 +60,8 @@ def main():
     p_ass.add_argument("-m", "--model", default="base")
     p_ass.add_argument("-l", "--language", default="en")
     p_ass.add_argument("-d", "--output-dir", default="output", dest="output_dir")
+    # Novo argumento para o efeito na legenda
+    p_ass.add_argument("--effect", default=None, help="Subtitle effect. Use predefined names (e.g., 'pop', 'fade') or a custom ASS tag string.")
     p_ass.set_defaults(func=cmd_ass)
 
     p_split = subparsers.add_parser("split")
@@ -75,6 +77,8 @@ def main():
     p_all.add_argument("-m", "--model", default="base")
     p_all.add_argument("-d", "--output-dir", default="output", dest="output_dir")
     p_all.add_argument("-e", "--engine", choices=["xtts", "styletts2"], default="xtts")
+    # O mesmo argumento na pipeline completa
+    p_all.add_argument("--effect", default=None, help="Subtitle effect. Use predefined names (e.g., 'pop', 'fade') or a custom ASS tag string.")
     p_all.set_defaults(func=cmd_all)
 
     args = parser.parse_args()
